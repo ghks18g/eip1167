@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 interface ICounter {
-    function initialize(uint256 _initialValue) external;
+    function initialize(uint256 _initialValue, address _owner) external;
 }
 
 contract CounterFactory {
@@ -19,7 +19,7 @@ contract CounterFactory {
 
     function createClone(uint256 initialValue) external returns (address counter) {
         counter = Clones.clone(implementation);
-        ICounter(counter).initialize(initialValue);
+        ICounter(counter).initialize(initialValue, msg.sender);
         allCounters.push(counter);
 
         emit CounterCreated(counter);

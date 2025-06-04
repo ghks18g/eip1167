@@ -7,11 +7,11 @@ contract Counter {
 
     bool private initialized;
 
-    function initialize(uint256 _initialValue) external {
+    function initialize(uint256 _initialValue, address _owner) external {
         require(!initialized, "Already initialized");
         initialized = true;
         count = _initialValue;
-        owner = msg.sender;
+        owner = _owner;
     }
 
     function increment() external {
